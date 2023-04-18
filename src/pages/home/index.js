@@ -5,13 +5,27 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
+  FlatList
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Logo } from "../../components/Logo";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export function Home() {
   const [inputValue, setInputValue] = useState("");
+  const [foods, setFoods] = useState([])
+
+  useEffect(() => {
+    (async function(){
+      try {
+        const response = await axios.get("http://192.168.0.103:3000/foods");
+        setFoods(response.data)
+      } catch (error) {
+        console.log(error)
+      }
+    })();
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -32,6 +46,12 @@ export function Home() {
           <Ionicons name="search" color="#4CBE6C" size={28} />
         </TouchableOpacity>
       </View>
+
+      <FlatList
+        data={foods}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({ item }) => <Text>{item.name}</Text>}
+      />
     </SafeAreaView>
   );
 }
