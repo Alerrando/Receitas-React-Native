@@ -13,7 +13,6 @@ import { useState } from "react";
 export function Home() {
   const [inputValue, setInputValue] = useState("");
 
-  console.log(inputValue);
   return (
     <SafeAreaView style={styles.container}>
       <Logo />
