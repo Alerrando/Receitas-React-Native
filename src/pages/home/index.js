@@ -10,7 +10,8 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { Logo } from "../../components/Logo";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { FoodList } from "../../components/FoodList";
+import api from '../../services/api'
 
 export function Home() {
   const [inputValue, setInputValue] = useState("");
@@ -19,7 +20,7 @@ export function Home() {
   useEffect(() => {
     (async function(){
       try {
-        const response = await axios.get("http://192.168.0.103:3000/foods");
+        const response = await api.get("/foods");
         setFoods(response.data)
       } catch (error) {
         console.log(error)
@@ -47,11 +48,14 @@ export function Home() {
         </TouchableOpacity>
       </View>
 
-      <FlatList
-        data={foods}
-        keyExtractor={(item) => String(item.id)}
-        renderItem={({ item }) => <Text>{item.name}</Text>}
-      />
+      <View style={styles.containerReceita}>
+        <FlatList
+          data={foods}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => <FoodList item={item} />}
+        />
+      </View>
+
     </SafeAreaView>
   );
 }
@@ -62,9 +66,16 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#F3F9FF",
     flex: 1,
+    height: 'auto',
     paddingEnd: 14,
     paddingStart: 14,
     paddingTop: 36,
+  },
+
+  containerReceita: {
+    display: 'flex',
+    height: "auto",
+    flexDirection: "column",
   },
 
   form: {
