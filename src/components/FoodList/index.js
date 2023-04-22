@@ -28,7 +28,7 @@ export function FoodList({ item }){
     )
 
     function handleNavigate(){
-        navigation.navigate('Detail')
+        navigation.navigate('Detail', { item: item })
     }
 }
 
