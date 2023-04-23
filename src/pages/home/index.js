@@ -21,7 +21,7 @@ export function Home() {
     (async function(){
       try {
         const response = await api.get("/foods");
-        setFoods(response.data)
+        setFoods(response.data);
       } catch (error) {
         console.log(error)
       }

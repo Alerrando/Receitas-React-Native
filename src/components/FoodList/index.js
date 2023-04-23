@@ -23,7 +23,6 @@ export function FoodList({ item }){
                 style={styles.gradient} 
                 colors={['transparent', 'rgba(0, 0, 0, 0.70)', 'rgba(0, 0, 0, 0.95)']} 
             />
-
         </TouchableOpacity>
     )
 
